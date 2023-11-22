@@ -49,7 +49,7 @@ router.post("/workspaces", isLoggedIn, async (req, res, next) => {
     }
     const workspace = await Workspace.create(
       {
-        name: req.body.workspace,
+        name: '',
         url: req.body.url,
         OwnerId: req.user.id,
       },
@@ -85,7 +85,7 @@ router.get(
         where: { url: req.params.workspace },
       });
       if (!workspace) {
-        return res.status(404).send("존재하지 않는 워크스페이스입니다.");
+        return res.status(404).send("존재하지 않는 워크스페이스입니다.")
       }
       return res.json(
         await workspace.getChannels({
@@ -805,9 +805,9 @@ router.post("/users", isNotLoggedIn, async (req, res, next) => {
       nickname: req.body.nickname,
       password: hashedPassword,
     });
-    const sleact = await Workspace.findOne({ where: { id: 1 } });
+    const kinni = await Workspace.findOne({ where: { id: 1 } });
     const channel = await Channel.findOne({ where: { id: 1 } });
-    await sleact.addMembers(user);
+    await kinni.addMembers(user);
     await channel.addMembers(user);
     res.status(201).send("ok");
   } catch (error) {
